@@ -39,7 +39,7 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "/dist/landing-page/browser/",
+              "baseHref": "/",
               "budgets": [
                 {
                   "type": "initial",
@@ -100,5 +100,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
