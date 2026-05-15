@@ -35,7 +35,7 @@ jobs:
 
       - name: Install OpenTofu
         run: |
-          curl -Lo tofu.zip https://github.com/opentofu/opentofu/releases/latest/download/tofu_linux_amd64.zip
+          curl -Lo tofu.zip https://github.com/opentofu/opentofu/releases/download/v1.12.0/tofu_1.12.0_linux_amd64.zip
           unzip tofu.zip -d /usr/local/bin
           chmod +x /usr/local/bin/tofu
 
