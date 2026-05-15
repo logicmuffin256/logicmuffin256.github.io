@@ -32,3 +32,31 @@ jobs:
         with:
           name: angular-build
           path: dist/  # Specify the build output directory
+
+      - name: Install OpenTofu
+        run: |
+          curl -Lo tofu.zip https://github.com/opentofu/tofu/releases/latest/download/tofu_linux_amd64.zip
+          unzip tofu.zip -d /usr/local/bin
+          chmod +x /usr/local/bin/tofu
+
+      - name: Configure AWS Credentials
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        run: |
+          echo "Configuring AWS Credentials"
+          mkdir -p ~/.aws
+          echo "[default]" > ~/.aws/config
+          echo "region=${AWS_REGION}" >> ~/.aws/config
+          echo "aws_access_key_id=${AWS_ACCESS_KEY_ID}" > ~/.aws/credentials
+          echo "aws_secret_access_key=${AWS_SECRET_ACCESS_KEY}" >> ~/.aws/credentials
+
+      - name: Provision Lightsail Instance
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        run: |
+          tofu plan  # Create a plan to provision the resources
+          tofu apply  # Apply the plan to provision the Lightsail instance
