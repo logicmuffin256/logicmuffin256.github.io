@@ -44,8 +44,7 @@ jobs:
         run: echo "Configuring AWS Credentials"
 
       - name: Provision Lightsail Instance
-        working-directory: infrastructure  # Set the working directory to where main.tf is located
         run: |
-          # Initialize Terraform and apply the configuration
+          cd infrastructure  # Navigate to the infrastructure directory
           terraform init
           terraform apply -auto-approve
