@@ -45,11 +45,6 @@ jobs:
 
       - name: Provision Lightsail Instance
         run: |
-          echo "Current directory after cd:"
-          pwd
-          echo "Listing files in infrastructure directory..."
-          ls -la
-
-          echo cd infrastructure  # Navigate to the infrastructure directory
-          echo terraform init
-          echo terraform apply -auto-approve
+          cd .infrastructure  # Navigate to the infrastructure directory
+          terraform init
+          terraform apply -auto-approve
